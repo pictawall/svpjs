@@ -1,0 +1,16 @@
+{
+  "name": "svpjs",
+  "version": "1.0.0",
+  "authors": [
+    "Guylian Cox <guylian.cox@pictawall.com>"
+  ],
+  "description": "Abstracts social video players with one unified interface",
+  "main": "dist/svpjs.min.js",
+  "keywords": [
+    "javascript", "video", "player", "social"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/svpjs/svpjs#readme",
+  "private": false,
+  "ignore": []
+}
