@@ -29,8 +29,12 @@ class YoutubePlayerAdapter {
       width: WIDTH,
       videoId: id,
       playerVars: {
-        autoplay: initialState.autoplay || false,
-        controls: initialState.controls || false
+        autoplay: initialState.autoplay ? 1 : 0,
+        controls: initialState.controls ? 1 : 0,
+        showinfo: initialState.controls ? 1 : 0,
+        fs: initialState.controls ? 1 : 0,
+        enablejsapi: 1,
+        modestbranding: 1
       }
     });
 

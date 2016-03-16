@@ -3,6 +3,14 @@ Social Video Player Abstraction layer
 
 The purpose of this project is to create a new HTML Element, `<x-svp-player>` that will abstract the interfaces of non-standard video players (e.g. youtube videos, vines, etc...) to make them behave like an HTMLVideoElement.
 
+## Development progress
+
+Currently supported HTMLVideoElement properties are:
+
+- Attributes
+    - autoplay
+    - controls
+
 ## Usage
 
 Registering the element is simple. You will however need a **shadow DOM** and **Custom elements** polyfill if your targeted browser doesn't support these.
