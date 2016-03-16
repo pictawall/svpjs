@@ -11,12 +11,14 @@ Currently supported HTMLVideoElement properties are:
     - autoplay
     - controls
 
-Currently supported social video players are:
+Currently supported video players types are:
 
 - Youtube
-- 
 
+Planned support for video player types includes:
 
+- Vimeo
+- Native players
 
 ## Usage
 
@@ -46,7 +48,7 @@ player.autoplay = true;
 document.body.appendChild(player);
 ```
 
-## Disabling unneeded
+## Disabling unneeded adapters
 
 The `svpjs` module takes care of registering all of our built-in adapters. This can result in a quite large bundle.
 
