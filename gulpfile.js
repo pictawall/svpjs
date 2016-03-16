@@ -17,6 +17,23 @@ gulp.task('dist', function (callback) {
   });
 });
 
+gulp.task('example', function (callback) {
+  const config = require('./webpack.config');
+  config.entry.app = './examples/main.js';
+  config.output.path = './examples';
+  delete config.output.libraryTarget;
+
+  webpack(require('./webpack.config'), function (err, stats) {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log('[webpack]', stats.toString());
+    }
+
+    callback();
+  });
+});
+
 gulp.task('es5-copy-nonjs', function () {
   return gulp
     .src(['src/**/*', 'tests/**/*', '!**/*.js'], { base: '.' })

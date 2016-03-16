@@ -10,11 +10,11 @@ const babelConfig = JSON.parse(file);
 
 module.exports = {
   entry: {
-    app: './src/app_webpack.js'
+    app: './src/app.js'
   },
   output: {
     path: './dist/dev',
-    filename: 'pictawall.sdk.js',
+    filename: 'svpjs.js',
     libraryTarget: 'commonjs2'
   },
   devtool: 'inline-source-map',
@@ -55,6 +55,6 @@ if (process.env.NODE_ENV === 'production') {
 
   // minify.
   module.exports.output.path = './dist';
-  module.exports.output.filename = 'pictawall.sdk.min.js';
+  module.exports.output.filename = 'svpjs.min.js';
   plugins.push(new webpack.optimize.UglifyJsPlugin({ comments: false }));
 }
