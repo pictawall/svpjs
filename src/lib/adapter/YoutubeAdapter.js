@@ -69,7 +69,8 @@ class YoutubePlayerAdapter {
     this._player.setSize(this._width, this._height);
   }
 
-  set autoplay(autoplay) {
+  set controls(controls) {
+    // TODO: reset the player
   }
 }
 

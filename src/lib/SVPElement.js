@@ -77,6 +77,14 @@ function compose(composedClass) {
   };
 }
 
+function _updateAdapter(name) {
+  return function (newValue, oldValue) {
+    if (this._adapter) {
+      this._adapter[name] = newValue;
+    }
+  }
+}
+
 const SVPElement = compose(class extends HTMLElement {
   createdCallback() {
     this.createShadowRoot();
@@ -109,7 +117,7 @@ const SVPElement = compose(class extends HTMLElement {
     this.shadowRoot.appendChild(this._adapter.playerElement);
   }
 })
-  .addBooleanAttribute('controls')
+  .addBooleanAttribute('controls', _updateAdapter('controls'))
   .addBooleanAttribute('autoplay')
   .addStringAttribute('src', function () {
     this._createAdapter();

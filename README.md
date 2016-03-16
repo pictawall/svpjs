@@ -11,6 +11,13 @@ Currently supported HTMLVideoElement properties are:
     - autoplay
     - controls
 
+Currently supported social video players are:
+
+- Youtube
+- 
+
+
+
 ## Usage
 
 Registering the element is simple. You will however need a **shadow DOM** and **Custom elements** polyfill if your targeted browser doesn't support these.
