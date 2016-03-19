@@ -14,6 +14,14 @@ class YoutubePlayerAdapter {
 
   constructor(id, initialState) {
 
+    this._state = initialState;
+    this._state.id = id;
+
+    this._playerContainer = document.createElement('div');
+    this._resetPlayer();
+  }
+
+  _resetPlayer() {
     const containerIdentifier = `svp-social-video-player-youtube-player-number-${playerNum++}-potato`;
 
     const div = document.createElement('div');
@@ -21,35 +29,59 @@ class YoutubePlayerAdapter {
 
     document.body.appendChild(div);
 
+    let localState = null;
+    if (this._player != null) {
+      console.log(this._player.getPlayerState());
+
+      localState = {
+        currentTime: this._player.getCurrentTime(),
+        playing: this._player.getPlayerState() === YoutubePlayerAdapter.YT.PlayerState.PLAYING
+      };
+    }
+
     /**
      * @type YT.Player
      */
     this._player = new YoutubePlayerAdapter.YT.Player(containerIdentifier, {
       height: HEIGHT,
       width: WIDTH,
-      videoId: id,
+      videoId: this._state.id,
       playerVars: {
-        autoplay: initialState.autoplay ? 1 : 0,
-        controls: initialState.controls ? 1 : 0,
-        showinfo: initialState.controls ? 1 : 0,
-        fs: initialState.controls ? 1 : 0,
-        enablejsapi: 1,
+        autoplay: this._state.autoplay ? 1 : 0,
+        controls: this._state.controls ? 1 : 0,
+        showinfo: this._state.controls ? 1 : 0,
+        fs: this._state.controls ? 1 : 0,
+        //enablejsapi: 1,
         modestbranding: 1
+      },
+      events: {
+        onReady: () => {
+          if (!localState) {
+            return;
+          }
+
+          this._player.seekTo(localState.currentTime, false);
+          if (!localState.playing) {
+            this._player.pauseVideo();
+          } else {
+            this._player.playVideo();
+          }
+        }
       }
     });
 
-    this._height = HEIGHT;
-    this._width = WIDTH;
+    const iframe = document.getElementById(containerIdentifier);
+    document.body.removeChild(iframe);
+    iframe.id = '';
 
-    this._iframe = document.getElementById(containerIdentifier);
-    document.body.removeChild(this._iframe);
-    this._iframe.id = '';
+    this._playerContainer.innerHTML = '';
+    this._playerContainer.appendChild(iframe);
   }
 
   // READONLY
 
   get playerElement() {
-    return this._iframe;
+    return this._playerContainer;
   }
 
   // MUTABLE
@@ -59,10 +91,6 @@ class YoutubePlayerAdapter {
     this._player.setSize(this._width, this._height);
   }
 
-  get width() {
-    return this._width;
-  }
-
   set width(width) {
     this._width = width;
 
@@ -70,7 +98,8 @@ class YoutubePlayerAdapter {
   }
 
   set controls(controls) {
-    // TODO: reset the player
+    this._state.controls = controls;
+    this._resetPlayer();
   }
 }
 

@@ -28,7 +28,7 @@ function compose(composedClass) {
 
       if (typeof onAttributeChange === 'function') {
         attributeChangedCallbacks[name] = function (newValue, oldValue) {
-          onAttributeChange.call(this, !!newValue, !!oldValue);
+          onAttributeChange.call(this, newValue !== null, oldValue !== null);
         };
       }
 
